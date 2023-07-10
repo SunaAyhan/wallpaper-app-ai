@@ -30,7 +30,6 @@ function WallpaperPage() {
         }).then(async (response) => {
             const blob = new Blob( [ response.data ], { type: "image/png" } );
             const base64Data = await convertBlobToBase64(blob);
-            savePhoto
             const savedFile = await Filesystem.writeFile({
             path: generatedWallpaper.id+".png",
             data: base64Data,
