@@ -109,14 +109,14 @@ function DrawerAppBar(props) {
     const container = window !== undefined ? () => window().document.body : undefined;
 
     return (
-        <Box sx={{ display: 'flex', marginBottom: "4rem" }}>
+        <Box sx={{ display: 'flex', marginBottom: "3rem" }}>
             <CssBaseline />
             <AppBar style={{
-                backgroundColor: '#8b6ddb'
+                backgroundColor: 'white',
             }} component="nav">
                 <Toolbar  >
                     <IconButton
-                        color="inherit"
+                        color="#000"
                         aria-label="open drawer"
                         edge="start"
                         onClick={handleDrawerToggle}
@@ -125,12 +125,14 @@ function DrawerAppBar(props) {
                         <MenuIcon />
                     </IconButton>
                     <Typography sx={{
-                        fontFamily: 'Gorditas',
+                        fontFamily: 'Alegreya',
+                        fontSize: '1.5rem',
                         justifyContent: 'center',
                         alignItems: 'center',
                         display: 'flex',
                         textAlign: 'center',
-                        fontWeight: 'medium',
+                        fontWeight: 'bold',
+                        color: '#000',
                         flexGrow: 1, // Add this line to make the text center-aligned
                     }} >
                         Sunayumi

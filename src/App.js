@@ -9,13 +9,15 @@ function App() {
   return (
     <div className="App">
       <BrowserRouter>
-        <Routes>
+        <div style={{
+          backgroundColor: "#f4f4f4",
+        }}>
+          <Routes>
+            <Route path="/"element={<HomePage />} />
+            <Route path="home" element={<HomePage />} />
+            <Route path="wallpaper" element={<WallpaperPage />} />
 
-          <Route path="home" element={<HomePage />} />
-          <Route path="wallpaper-page" element={<WallpaperPage />} />
-          <Route path="/"element={<HomePage />} />
-
-        </Routes>
+          </Routes></div>
       </BrowserRouter>
     </div>
   );

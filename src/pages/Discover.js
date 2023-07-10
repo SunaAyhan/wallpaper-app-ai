@@ -6,7 +6,7 @@ function DiscoverPage() {
 
     const handleWallpaperClick = () => {
         // Navigate to the wallpaper page
-        navigate('wallpaper-page');
+        navigate('/wallpaper');
     };
     const wallpapers = [
         'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSmmmKdMXFfF7uR4l9qx5JQVuDcLK9BLOlHDQ&usqp=CAU',
@@ -17,7 +17,7 @@ function DiscoverPage() {
         // Add more wallpapers...
     ]
     return <div>
-        <Box sx={{ height: '100vh', overflowY: 'scroll', padding: '1rem' }}>
+        <Box sx={{ height: '100vh', overflowY: 'scroll', padding: '1rem', backgroundColor: '#f4f4f4' }}>
             <Grid container spacing={1.5}>
                 {wallpapers.map((wallpaper, index) => (
                     <Grid item xs={6} sm={6} md={4} lg={3} key={index}>
