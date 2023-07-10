@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Sunayumi</string>
+    <string name="title_activity_main">Sunayumi</string>
+    <string name="package_name">com.suna.sunayumi</string>
+    <string name="custom_url_scheme">com.suna.sunayumi</string>
+</resources>

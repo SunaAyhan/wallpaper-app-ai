@@ -14,6 +14,8 @@ import MenuIcon from '@mui/icons-material/Menu';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
+import { GoogleAuth } from '@codetrix-studio/capacitor-google-auth';
+import axios from 'axios';
 
 const drawerWidth = 240;
 const navItems = ['Home', 'About', 'Contact'];
@@ -21,6 +23,38 @@ const navItems = ['Home', 'About', 'Contact'];
 function DrawerAppBar(props) {
     const { window } = props;
     const [mobileOpen, setMobileOpen] = React.useState(false);
+    const [user, setUser] = React.useState(null);
+    const [userLocal, setUserLocal] = React.useState(null);
+    const [usageLimits, setUsageLimits] = React.useState(null);
+
+    const googleLogin = async () => {
+        const googleUser = await GoogleAuth.signIn();
+        //store user details in local storage
+        localStorage.setItem('googleUser', JSON.stringify(googleUser));
+        setUserLocal(googleUser);
+      };
+
+    React.useEffect(() => {
+        const googleUser = localStorage.getItem('googleUser');
+        if (googleUser) {
+            //get usage limits left for the user from api. Api address is https://0x8a3cf5929896120565520424a8d6a55c956f82f3.diode.link/usage 
+            //it's post request with body {token: googleUser.user_id}
+            console.log(googleUser);
+            const usageLimits = axios.post('https://0x8a3cf5929896120565520424a8d6a55c956f82f3.diode.link/login', { token: JSON.parse(googleUser).idToken}).then((res) => {
+                if (res.data.error) {
+                    if (res.data.error === "Invalid token") {
+                        localStorage.removeItem('googleUser');
+                        setUser(null);
+                    }
+                }else {
+                    setUsageLimits(res.data);
+                }
+            }).catch((err) => {
+                console.log("err", err);
+            });
+            setUser(JSON.parse(googleUser));
+        }
+    }, [userLocal]);
 
     const handleDrawerToggle = () => {
         setMobileOpen((prevState) => !prevState);
@@ -41,6 +75,34 @@ function DrawerAppBar(props) {
                     </ListItem>
                 ))}
             </List>
+            <Divider />
+            {user ? (
+                <>
+                <Button
+                    variant="contained"
+                    color="secondary"
+                    onClick={() => {
+                        localStorage.removeItem('googleUser');
+                        setUser(null);
+                    }}
+                >
+                    Logout
+                </Button>
+                <Typography variant="h6" sx={{ my: 2 }}>
+                    Usage Left {usageLimits?.usageLeft}
+                </Typography>
+                </>
+            ) : (
+                <Button
+                    variant="contained"
+                    color="secondary"
+                    onClick={() => {
+                        googleLogin();
+                    }}
+                >
+                    Login
+                </Button>
+            )}
         </Box>
     );
 
@@ -102,7 +164,6 @@ function DrawerAppBar(props) {
                     {drawer}
                 </Drawer>
             </Box>
-
         </Box>
     );
 }
