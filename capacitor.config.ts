@@ -13,6 +13,12 @@ const config: CapacitorConfig = {
       androidClientId: '153647853356-1n9mdr3406hdkkgb4bj55fg4bnjj7qqt.apps.googleusercontent.com',
       forceCodeForRefreshToken: true,
     },
+    CapacitorHttp: {
+      enabled: true,
+    },
+    Wallpaper: {
+      enabled: true,
+    }
   },
 
 };
