@@ -1,6 +1,13 @@
 
 import { Box, Grid, Paper } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 function DiscoverPage() {
+    const navigate = useNavigate();
+
+    const handleWallpaperClick = () => {
+        // Navigate to the wallpaper page
+        navigate('wallpaper-page');
+    };
     const wallpapers = [
         'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSmmmKdMXFfF7uR4l9qx5JQVuDcLK9BLOlHDQ&usqp=CAU',
         'https://r1.ilikewallpaper.net/iphone-12-pro-wallpapers/download-144354/honkai-impact-3rd-anime-4k.jpg',
@@ -22,6 +29,7 @@ function DiscoverPage() {
                                 backgroundSize: 'cover',
                                 backgroundPosition: 'center',
                             }}
+                            onClick={handleWallpaperClick}
                         />
                     </Grid>
                 ))}

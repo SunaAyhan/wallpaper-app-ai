@@ -52,23 +52,30 @@ function DrawerAppBar(props) {
             <AppBar style={{
                 backgroundColor: '#8b6ddb'
             }} component="nav">
-                <Toolbar>
+                <Toolbar  >
                     <IconButton
                         color="inherit"
                         aria-label="open drawer"
                         edge="start"
                         onClick={handleDrawerToggle}
-                        sx={{ mr: 2, display: { sm: 'none' } }}
+                        sx={{ display: { sm: 'none' } }}
                     >
                         <MenuIcon />
                     </IconButton>
-                    <Typography
-                        variant="h6"
-                        component="div"
-                        sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}
-                    >
-                        MUI
+                    <Typography sx={{
+                        fontFamily: 'Gorditas',
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                        display: 'flex',
+                        textAlign: 'center',
+                        fontWeight: 'medium',
+                        flexGrow: 1, // Add this line to make the text center-aligned
+                    }} >
+                        Sunayumi
                     </Typography>
+
+
+
                     <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
                         {navItems.map((item) => (
                             <Button key={item} sx={{ color: '#fff' }}>

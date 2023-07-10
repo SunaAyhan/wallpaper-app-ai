@@ -10,6 +10,7 @@ import SearchIcon from '@mui/icons-material/Search';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import DiscoverPage from '../pages/Discover';
 import GeneratePage from '../pages/Generate';
+import GoogleFontLoader from 'react-google-font-loader';
 
 export default function FixedBottomNavigation() {
     const [value, setValue] = React.useState(0);
@@ -25,6 +26,16 @@ export default function FixedBottomNavigation() {
     return (
         <Box sx={{ pb: 7 }}>
             <CssBaseline />
+            <GoogleFontLoader
+                fonts={[
+                    {
+                        font: 'Gorditas',
+                        weights: [400, '400i'],
+                    },
+
+                ]}
+                subsets={['cyrillic-ext', 'greek']}
+            />
             <Paper sx={{ position: 'fixed', bottom: 0, left: 0, right: 0 }} elevation={3}>
                 <BottomNavigation
                     showLabels
@@ -33,9 +44,14 @@ export default function FixedBottomNavigation() {
                         setValue(newValue);
                     }}
                     sx={{
+                        backgroundColor: '#8b6ddb',
                         '& .Mui-selected': {
-                            color: '#8b6ddb', // İkon rengi ve yazı rengi için mor (purple) renk
+                            color: '#ffffff !important',
+                            fontFamily: 'Gorditas',
+                            // İkon rengi ve yazı rengi için mor (purple) renk
                         },
+
+
                     }}
 
                 >
