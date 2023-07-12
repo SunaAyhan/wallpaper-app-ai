@@ -69,8 +69,9 @@ function GeneratePage() {
     setIsLoading(false);
   };
 
-  return (
-    isLoading ? <LoadingScreen /> : (
+  return ( 
+  <div>
+    {isLoading ? <LoadingScreen /> : 
       <Box
         display="flex"
         flexDirection="column"
@@ -204,7 +205,7 @@ function GeneratePage() {
           Modelin İsmi
         </p>
       </Box>
-    )
+} </div>
   );}
 
 export default GeneratePage;
