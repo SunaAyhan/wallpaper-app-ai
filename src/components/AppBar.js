@@ -11,11 +11,17 @@ import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemText from '@mui/material/ListItemText';
 import MenuIcon from '@mui/icons-material/Menu';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import { GoogleAuth } from '@codetrix-studio/capacitor-google-auth';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+import Chip from '@mui/material/Chip';
+
+
+
 
 const drawerWidth = 240;
 const navItems = ['Home', 'About', 'Contact'];
@@ -26,13 +32,17 @@ function DrawerAppBar(props) {
     const [user, setUser] = React.useState(null);
     const [userLocal, setUserLocal] = React.useState(null);
     const [usageLimits, setUsageLimits] = React.useState(null);
+    const navigate = useNavigate();
 
+    const handleGoBack = () => {
+        navigate(-1); // Bir önceki sayfaya gitmek için -1 parametresini kullanın
+    };
     const googleLogin = async () => {
         const googleUser = await GoogleAuth.signIn();
         //store user details in local storage
         localStorage.setItem('googleUser', JSON.stringify(googleUser));
         setUserLocal(googleUser);
-      };
+    };
 
     React.useEffect(() => {
         const googleUser = localStorage.getItem('googleUser');
@@ -40,13 +50,13 @@ function DrawerAppBar(props) {
             //get usage limits left for the user from api. Api address is https://0x8a3cf5929896120565520424a8d6a55c956f82f3.diode.link/usage 
             //it's post request with body {token: googleUser.user_id}
             console.log(googleUser);
-            const usageLimits = axios.post('https://0x8a3cf5929896120565520424a8d6a55c956f82f3.diode.link/login', { token: JSON.parse(googleUser).idToken}).then((res) => {
+            const usageLimits = axios.post('https://0x8a3cf5929896120565520424a8d6a55c956f82f3.diode.link/login', { token: JSON.parse(googleUser).idToken }).then((res) => {
                 if (res.data.error) {
                     if (res.data.error === "Invalid token") {
                         localStorage.removeItem('googleUser');
                         setUser(null);
                     }
-                }else {
+                } else {
                     setUsageLimits(res.data);
                 }
             }).catch((err) => {
@@ -78,19 +88,19 @@ function DrawerAppBar(props) {
             <Divider />
             {user ? (
                 <>
-                <Button
-                    variant="contained"
-                    color="secondary"
-                    onClick={() => {
-                        localStorage.removeItem('googleUser');
-                        setUser(null);
-                    }}
-                >
-                    Logout
-                </Button>
-                <Typography variant="h6" sx={{ my: 2 }}>
-                    Usage Left {usageLimits?.usageLeft}
-                </Typography>
+                    <Button
+                        variant="contained"
+                        color="secondary"
+                        onClick={() => {
+                            localStorage.removeItem('googleUser');
+                            setUser(null);
+                        }}
+                    >
+                        Logout
+                    </Button>
+                    <Typography variant="h6" sx={{ my: 2 }}>
+                        Usage Left {usageLimits?.usageLeft}
+                    </Typography>
                 </>
             ) : (
                 <Button
@@ -119,11 +129,17 @@ function DrawerAppBar(props) {
                         color="#000"
                         aria-label="open drawer"
                         edge="start"
-                        onClick={handleDrawerToggle}
+
+                        onClick={handleGoBack}
                         sx={{ display: { sm: 'none' } }}
                     >
-                        <MenuIcon />
+
+                        <ArrowBackIcon style={{
+                            color: 'black',
+                        }} />
                     </IconButton>
+
+
                     <Typography sx={{
                         fontFamily: 'Alegreya',
                         fontSize: '1.5rem',
@@ -135,8 +151,15 @@ function DrawerAppBar(props) {
                         color: '#000',
                         flexGrow: 1, // Add this line to make the text center-aligned
                     }} >
-                        Sunayumi
+                        SunaYumi
                     </Typography>
+
+                    <Chip style={{
+                        border: '1px solid #000',
+                        borderRadius: '5px',
+                        fontFamily: 'Alegreya',
+                        fontWeight: 'bold',
+                    }} label="Hak: 5" variant="outlined" />
 
 
 

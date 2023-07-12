@@ -9,6 +9,7 @@ import { Share } from '@capacitor/share';
 import {Plugins} from '@capacitor/core';
 import { Media, MediaSaveOptions } from "@capacitor-community/media";
 import { useState } from "react";
+import SendIcon from '@mui/icons-material/Send';
 const { Wallpaper } = Plugins;
 
 function WallpaperPage() {
@@ -110,7 +111,8 @@ function WallpaperPage() {
         backgroundImage: `url(${generatedWallpaper.output[0].image})`,
         backgroundRepeat: "no-repeat",
         backgroundPosition: "center",
-        minHeight: "100vh" // Arka planın tamamını kaplaması için sayfa yüksekliğini ayarlayabilirsiniz
+        minHeight: "100vh", // Arka planın tamamını kaplaması için sayfa yüksekliğini ayarlayabilirsiniz
+      
     }} >
 
         <DrawerAppBar />
@@ -118,8 +120,9 @@ function WallpaperPage() {
             display: "flex",
             justifyContent: "center",
             position: "absolute",
-            bottom: "2rem",
-            width: "100%"
+            bottom: "1rem",
+            width: "100%",
+          
         }}>
             <Button style={{
                 backgroundColor: "white",
@@ -129,14 +132,17 @@ function WallpaperPage() {
                 fontSize: "1.5rem",
                 borderRadius: "0.3rem",
                 padding: "0.5rem",
-
+                border : "1px solid black ",
+                minWidth: "10rem",
 
                 textTransform: "none",
             }}
                 onClick={handleDownloadClick}
                 variant="contained">
                     Download  
-                    <GetAppIcon /> 
+                    <GetAppIcon style={{
+                        marginLeft: "0.5rem"
+                    }} /> 
                 </Button>
             <Button style={{
                 backgroundColor: "white",
@@ -147,12 +153,17 @@ function WallpaperPage() {
                 borderRadius: "0.3rem",
                 padding: "0.5rem",
                 marginLeft: "1rem",
+                border : "1px solid black ",
+                minWidth: "10rem",
+             
 
 
                 textTransform: "none",
             }}
                 onClick={handleShareClick}  
-            variant="contained">Share Wallpaper </Button>
+            variant="contained">Share <SendIcon style={{
+                marginLeft: "0.5rem"
+            }}/> </Button>
 
         </div>
 

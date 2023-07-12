@@ -1,12 +1,12 @@
 
-import { Box, Grid, Paper } from '@mui/material';
+import { Box, Grid, Paper, Typography } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 function DiscoverPage() {
     const navigate = useNavigate();
 
     const handleWallpaperClick = () => {
         // Navigate to the wallpaper page
-        navigate('/wallpaper');
+        navigate('/loading');
     };
     const wallpapers = [
         'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSmmmKdMXFfF7uR4l9qx5JQVuDcLK9BLOlHDQ&usqp=CAU',
@@ -18,6 +18,9 @@ function DiscoverPage() {
     ]
     return <div>
         <Box sx={{ height: '100vh', overflowY: 'scroll', padding: '1rem', backgroundColor: '#f4f4f4' }}>
+            <Typography variant="h5" sx={{ fontWeight: 'bold', marginBottom: '1rem', fontFamily: 'Alegreya' }}>
+                My Creations
+            </Typography>
             <Grid container spacing={1.5}>
                 {wallpapers.map((wallpaper, index) => (
                     <Grid item xs={6} sm={6} md={4} lg={3} key={index}>
@@ -28,6 +31,8 @@ function DiscoverPage() {
                                 backgroundImage: `url(${wallpaper})`,
                                 backgroundSize: 'cover',
                                 backgroundPosition: 'center',
+                                boxShadow: '0px 0px 10px 0px rgba(0,0,0,0.75)',
+                                border: '2px solid #f4f4f4',
                             }}
                             onClick={handleWallpaperClick}
                         />

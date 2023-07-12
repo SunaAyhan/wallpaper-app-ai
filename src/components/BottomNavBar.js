@@ -17,9 +17,9 @@ export default function FixedBottomNavigation() {
 
     const renderPage = () => {
         if (value === 0) {
-            return <DiscoverPage />;
-        } else if (value === 1) {
             return <GeneratePage />;
+        } else if (value === 1) {
+            return <DiscoverPage />;
         }
     };
 
@@ -54,9 +54,9 @@ export default function FixedBottomNavigation() {
                     }}
 
                 >
-                    <BottomNavigationAction label="Discover" icon={<SearchIcon />}
+                    <BottomNavigationAction label="Generate" icon={<AddCircleIcon />}
                     />
-                    <BottomNavigationAction label="Generate" icon={<AddCircleIcon />} />
+                    <BottomNavigationAction label="My Creations" icon={<SearchIcon />} />
                 </BottomNavigation>
             </Paper>
             {renderPage()}
