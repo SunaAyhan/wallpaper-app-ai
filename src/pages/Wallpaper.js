@@ -125,43 +125,43 @@ function WallpaperPage() {
           
         }}>
             <Button style={{
-                backgroundColor: "white",
-                color: "black",
+                backgroundColor: " #8b6ddb ",
+                color: "white",
                 fontFamily: "Alegreya",
                 fontWeight: "bold",
                 fontSize: "1.5rem",
                 borderRadius: "0.3rem",
                 padding: "0.5rem",
-                border : "1px solid black ",
-                minWidth: "10rem",
+                border : "2px solid white ",
+                minWidth: "5rem",
 
                 textTransform: "none",
             }}
                 onClick={handleDownloadClick}
                 variant="contained">
-                    Download  
+                   
                     <GetAppIcon style={{
                         marginLeft: "0.5rem"
                     }} /> 
                 </Button>
             <Button style={{
-                backgroundColor: "white",
-                color: "black",
+                backgroundColor: " #8b6ddb",
+                color: "white",
                 fontFamily: "Alegreya",
                 fontWeight: "bold",
                 fontSize: "1.5rem",
                 borderRadius: "0.3rem",
                 padding: "0.5rem",
                 marginLeft: "1rem",
-                border : "1px solid black ",
-                minWidth: "10rem",
+                border : "2px solid white ",
+                minWidth: "5rem",
              
 
 
                 textTransform: "none",
             }}
                 onClick={handleShareClick}  
-            variant="contained">Share <SendIcon style={{
+            variant="contained"> <SendIcon style={{
                 marginLeft: "0.5rem"
             }}/> </Button>
 

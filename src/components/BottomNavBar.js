@@ -44,8 +44,9 @@ export default function FixedBottomNavigation() {
                         setValue(newValue);
                     }}
                     sx={{
+                        backgroundColor: '#8b6ddb',
                         '& .Mui-selected': {
-                            color: '#8b6ddb !important',
+                            color: 'white !important',
                             fontFamily: 'Alegreya',
                             // İkon rengi ve yazı rengi için mor (purple) renk
                         },

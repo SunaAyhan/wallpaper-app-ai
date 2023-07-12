@@ -17,6 +17,11 @@ function GeneratePage() {
     marginBottom: "0.8rem",
     minHeight: "3rem",
     minWidth: "100%",
+    boxShadow: '0px 1px 0px rgba(0, 0, 0, 0.15)',
+ 
+
+
+   
   };
 
   const navigate = useNavigate();
@@ -96,11 +101,12 @@ function GeneratePage() {
             marginBottom: "2rem",
             fontWeight: "bold",
             fontFamily: "Alegreya",
+            marginTop: "4rem",
           }}
           variant="h5"
           gutterBottom
         >
-          Generate Anime Girl Wallpaper
+          Create Anime Girl Wallpaper
         </Typography>
         <Box
           style={{
@@ -108,7 +114,7 @@ function GeneratePage() {
             borderRadius: 10,
           }}
           width="100%"
-          marginBottom={"1rem"}
+          marginBottom={"2rem"}
         >
           <TextField
             style={{
@@ -134,7 +140,8 @@ function GeneratePage() {
             backgroundColor: "#8b6ddb",
             textTransform: "none",
             fontFamily: "Alegreya",
-            marginBottom: "1rem",
+            marginBottom: "5rem",
+            width: "100%",
           }}
           onClick={generateWallpaper}
           disabled={isLoading}
@@ -143,9 +150,10 @@ function GeneratePage() {
             style={{
               fontFamily: "Alegreya",
               fontSize: "1.3rem",
+             
             }}
           >
-            Generate
+            Create
           </Typography>
           <NorthEastIcon
             style={{
@@ -164,12 +172,12 @@ function GeneratePage() {
         <Button style={ButtonStyle} variant="contained">
           Fierce warrior girl with a mythical weapon..
         </Button>
-        <Button style={ButtonStyle} variant="contained">
+        {/* <Button style={ButtonStyle} variant="contained">
           Playful anime girl surrounded by floating balloons..
         </Button>
         <Button style={ButtonStyle} variant="contained">
           Steampunk engineer anime girl with mechanical gadgets and goggles..
-        </Button>
+        </Button> */}
         {/* {generatedWallpaper && (
           <Paper
             elevation={3}
@@ -198,11 +206,11 @@ function GeneratePage() {
             position: "absolute",
             bottom: "5rem",
             fontFamily: "Alegreya",
-            fontSize: "3px",
+            fontSize: "12px",
             color: "grey",
           }}
         >
-          Modelin İsmi
+       
         </p>
       </Box>
 } </div>
