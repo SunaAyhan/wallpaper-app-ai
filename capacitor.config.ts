@@ -1,4 +1,5 @@
 import { CapacitorConfig } from '@capacitor/cli';
+import { KeyboardResize } from '@capacitor/keyboard';
 
 const config: CapacitorConfig = {
   appId: 'com.suna.sunayumi',
@@ -18,7 +19,10 @@ const config: CapacitorConfig = {
     },
     Wallpaper: {
       enabled: true,
-    }
+    },
+    Keyboard: {
+      resize: KeyboardResize.None,
+    },
   },
 
 };

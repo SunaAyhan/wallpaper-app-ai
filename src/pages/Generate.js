@@ -46,7 +46,8 @@ function GeneratePage() {
   //set the loading state true while the wallpaper is being generated
   const generateWallpaper = async () => {
     setIsLoading(true);
-    const googleUser = '{"idToken": "test"}';
+    // const googleUser = '{"idToken": "test"}';
+    const googleUser = localStorage.getItem("googleUser");
     if (googleUser) {
       await axios
         .post(
@@ -83,8 +84,9 @@ function GeneratePage() {
         alignItems="center"
         padding={3}
         style={{
-          backgroundColor: "#f4f4f4",
-          overflow: "hidden", // Sayfanın kaydırılamaz olması için
+          backgroundColor: "#f4f4f4", 
+          overflow: "hidden",
+          zIndex: -1,
         }}
       >
         <GoogleFontLoader
@@ -163,14 +165,14 @@ function GeneratePage() {
             }}
           />
         </Button>
-        <Button style={ButtonStyle} variant="contained">
-          Futuristic cyberpunk anime girl..
+        <Button style={ButtonStyle} onClick={(e) => setTextFieldValue(e.target.textContent)} variant="contained">
+          Futuristic cyberpunk anime girl with a katana in a neon city
         </Button>
-        <Button style={ButtonStyle} variant="contained">
-          Elegant anime girl with cherry blossom petals..
+        <Button style={ButtonStyle} onClick={(e) => setTextFieldValue(e.target.textContent)} variant="contained">
+          Elegant anime girl with cherry blossom petals in the background
         </Button>
-        <Button style={ButtonStyle} variant="contained">
-          Fierce warrior girl with a mythical weapon..
+        <Button style={ButtonStyle} onClick={(e) => setTextFieldValue(e.target.textContent)} variant="contained">
+          Fierce warrior girl with a mythical weapon in a fantasy setting with a dragon in the background
         </Button>
         {/* <Button style={ButtonStyle} variant="contained">
           Playful anime girl surrounded by floating balloons..

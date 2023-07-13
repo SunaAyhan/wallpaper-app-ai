@@ -1,40 +1,72 @@
 
 import { Box, Grid, Paper, Typography } from '@mui/material';
+import axios from 'axios';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 function DiscoverPage() {
     const navigate = useNavigate();
+    const [wallpapers, setWallpapers] = useState([]);
 
-    const handleWallpaperClick = () => {
+    const handleWallpaperClick = (wallpaper) => {
         // Navigate to the wallpaper page
-        navigate('/loading');
+        const wpJSON = {
+            "output": [
+                {
+                    "image": wallpaper.url,
+                }
+            ],
+        }
+        navigate("/wallpaper", { state: { generatedWallpaper: wpJSON } });
     };
-    const wallpapers = [
-        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSmmmKdMXFfF7uR4l9qx5JQVuDcLK9BLOlHDQ&usqp=CAU',
-        'https://r1.ilikewallpaper.net/iphone-12-pro-wallpapers/download-144354/honkai-impact-3rd-anime-4k.jpg',
-        'https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/ef235af8-b407-482f-be87-a165aee8ded4/dfnwxxv-db58e791-d837-4e45-ab58-a964510515ac.jpg/v1/fill/w_636,h_1257,q_70,strp/anime_girl_wallpaper_by_darkedgeyt_dfnwxxv-pre.jpg?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7ImhlaWdodCI6Ijw9MTYwMCIsInBhdGgiOiJcL2ZcL2VmMjM1YWY4LWI0MDctNDgyZi1iZTg3LWExNjVhZWU4ZGVkNFwvZGZud3h4di1kYjU4ZTc5MS1kODM3LTRlNDUtYWI1OC1hOTY0NTEwNTE1YWMuanBnIiwid2lkdGgiOiI8PTgwOSJ9XV0sImF1ZCI6WyJ1cm46c2VydmljZTppbWFnZS5vcGVyYXRpb25zIl19.Fq181oeS-v9z5UEA5A_9IowCPaFnHJA0WZ2SAzD6Eyw',
-        'https://www.wallpapertip.com/wmimgs/123-1236231_anime-anime-girls-digital-art-artwork-portrait-girl.jpg',
-        'https://image.winudf.com/v2/image/Y29tLmJlc3R3YWxscGFwZXIuYW5pbWUuZ2lybC53YWxscGFwZXJfc2NyZWVuXzBfMTUyOTM5NjU4NV8wNzk/screen-0.webp?fakeurl=1&type=.webp',
-        // Add more wallpapers...
-    ]
+    useEffect(() => {
+        // Fetch wallpapers from the API https://0x8a3cf5929896120565520424a8d6a55c956f82f3.diode.link/myCreations with body {token: googleUser.user_id}
+        /* Example return: [
+            {
+                "_id": "64af13c13ac13a6590f40761",
+                "google_id": "test",
+                "url": "https://14068d66ba387efac9ce5e4b1741bcf2.r2.cloudflarestorage.com/ai-api/07-23/sync-134ee545-5c2d-475f-bd42-91f1b3c2318a_0.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=16b502c87564788383d52ec498a61a24%2F20230712%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20230712T205739Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=7a2b77d730ee7a3362d74d61d270be6b9533c31ac18f579e242aabe9e6dfcc53",
+                "prompt": "Elegant anime girl with cherry blossom petals in the background cute anime poster, anime, trending on artstation, "
+            },
+            {
+                "_id": "64af140b3ac13a6590f40762",
+                "google_id": "test",
+                "url": "https://14068d66ba387efac9ce5e4b1741bcf2.r2.cloudflarestorage.com/ai-api/07-23/sync-c0b88090-2293-4353-b723-1d647733cd82_0.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=16b502c87564788383d52ec498a61a24%2F20230712%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20230712T205853Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=7b1d0b6d75775d011af9b3add6ec2cfff3c435820a2f31dd2a3d132e120528e3",
+                "prompt": "Fierce warrior girl with a mythical weapon in a fantasy setting with a dragon in the background cute anime poster, anime, ilya kuvshinov, trending on pixiv. a detailed portrait of emma watson as a female"
+            }
+        ]*/
+        // const googleUser = '{"idToken": "test"}';
+        const googleUser = localStorage.getItem("googleUser");
+        axios.post('https://0x8a3cf5929896120565520424a8d6a55c956f82f3.diode.link/myCreations', { token: JSON.parse(googleUser).idToken })
+            .then((response) => {
+                console.log(response.data);
+                if (response.data.error) {
+                }else
+                setWallpapers(response.data);
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    }, []);
+        
     return <div>
         <Box sx={{ height: '100vh', overflowY: 'scroll', padding: '1rem', backgroundColor: '#f4f4f4' }}>
             <Typography variant="h5" sx={{ fontWeight: 'bold', marginBottom: '1rem', fontFamily: 'Alegreya' }}>
                 My Creations
             </Typography>
             <Grid container spacing={1.5}>
-                {wallpapers.map((wallpaper, index) => (
+                {wallpapers?.map((wallpaper, index) => (
                     <Grid item xs={6} sm={6} md={4} lg={3} key={index}>
                         <Paper
                             elevation={3}
                             sx={{
                                 height: 300,
-                                backgroundImage: `url(${wallpaper})`,
+                                backgroundImage: `url(${wallpaper.url})`,
                                 backgroundSize: 'cover',
                                 backgroundPosition: 'center',
                                 boxShadow: '0px 0px 10px 0px rgba(0,0,0,0.75)',
                                 border: '2px solid #f4f4f4',
                             }}
-                            onClick={handleWallpaperClick}
+                            onClick={handleWallpaperClick.bind(this, wallpaper)}
                         />
                     </Grid>
                 ))}

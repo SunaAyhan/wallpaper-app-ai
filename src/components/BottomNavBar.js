@@ -25,6 +25,8 @@ export default function FixedBottomNavigation() {
 
     return (
         <Box sx={{ pb: 7 }}>
+            {renderPage()}
+
             <CssBaseline />
             <GoogleFontLoader
                 fonts={[
@@ -60,7 +62,6 @@ export default function FixedBottomNavigation() {
                     <BottomNavigationAction label="My Creations" icon={<SearchIcon />} />
                 </BottomNavigation>
             </Paper>
-            {renderPage()}
         </Box>
     );
 }

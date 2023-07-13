@@ -42,9 +42,13 @@ function DrawerAppBar(props) {
     localStorage.setItem("googleUser", JSON.stringify(googleUser));
     setUserLocal(googleUser);
   };
+  const handleBuyToken = () => {
+    alert("Currently not available");
+  };
 
   React.useEffect(() => {
     const googleUser = localStorage.getItem("googleUser");
+    // const googleUser = '{"idToken": "test"}';
     if (googleUser) {
       //get usage limits left for the user from api. Api address is https://0x8a3cf5929896120565520424a8d6a55c956f82f3.diode.link/usage
       //it's post request with body {token: googleUser.user_id}
@@ -91,33 +95,7 @@ function DrawerAppBar(props) {
         ))}
       </List>
       <Divider />
-      {user ? (
-        <>
-          <Button
-            variant="contained"
-            color="secondary"
-            onClick={() => {
-              localStorage.removeItem("googleUser");
-              setUser(null);
-            }}
-          >
-            Logout
-          </Button>
-          <Typography variant="h6" sx={{ my: 2 }}>
-            Usage Left {usageLimits?.usageLeft}
-          </Typography>
-        </>
-      ) : (
-        <Button
-          variant="contained"
-          color="secondary"
-          onClick={() => {
-            googleLogin();
-          }}
-        >
-          Login
-        </Button>
-      )}
+      
     </Box>
   );
 
@@ -130,6 +108,7 @@ function DrawerAppBar(props) {
       <AppBar
         style={{
           backgroundColor: "#8b6ddb",
+          marginBottom: "2rem",
         }}
         component="nav"
       >
@@ -163,58 +142,53 @@ function DrawerAppBar(props) {
             Sunayumi
           </Typography>
 
-          <Button
-            style={{
-              border: "none",
-              borderRadius: "5px",
-              fontFamily: "Alegreya",
-             
-              textTransform: "none",
-              fontSize: "1.3rem",
-              color: "white",
-            }}
-            variant="outlined"
-          >
-            Token: 5 {usageLimits?.usageLeft}
-            <AddCircleIcon
-              style={{
-                color: "white",
-                fontSize: "1.5rem",
-                marginLeft: "0.4rem",
-               
-              }}
-            />
-          </Button>
-
-          <Box sx={{ display: { xs: "none", sm: "block" } }}>
-            {navItems.map((item) => (
-              <Button key={item} sx={{ color: "#fff" }}>
-                {item}
+          {user ? (
+            <>
+              <Button
+                style={{
+                  border: "none",
+                  borderRadius: "5px",
+                  fontFamily: "Alegreya",
+                
+                  textTransform: "none",
+                  fontSize: "1.3rem",
+                  color: "white",
+                }}
+                onClick={handleBuyToken}
+                variant="outlined"
+              >
+                Token: {usageLimits?.usageLeft}
+                <AddCircleIcon
+                  style={{
+                    color: "white",
+                    fontSize: "1.5rem",
+                    marginLeft: "0.4rem",
+                  
+                  }}
+                />
               </Button>
-            ))}
-          </Box>
+            </>
+          ) : (
+            <Button
+                style={{
+                  border: "3px solid ",
+                  borderRadius: "5px",
+                  fontFamily: "Alegreya",
+                  backgroundColor: "#fff",
+                  textTransform: "none",
+                  fontSize: "1.3rem",
+                  color: "#8b6ddb",
+                }}
+                onClick={googleLogin}
+                variant="outlined"
+              >
+              Login
+            </Button>
+          )}
+        
+          
         </Toolbar>
       </AppBar>
-      <Box component="nav">
-        <Drawer
-          container={container}
-          variant="temporary"
-          open={mobileOpen}
-          onClose={handleDrawerToggle}
-          ModalProps={{
-            keepMounted: true, // Better open performance on mobile.
-          }}
-          sx={{
-            display: { xs: "block", sm: "none" },
-            "& .MuiDrawer-paper": {
-              boxSizing: "border-box",
-              width: drawerWidth,
-            },
-          }}
-        >
-          {drawer}
-        </Drawer>
-      </Box>
     </Box>
   );
 }
