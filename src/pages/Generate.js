@@ -116,7 +116,7 @@ function GeneratePage() {
       style={{
         backgroundColor: "#f4f4f4",
         overflow: "hidden",
-      
+    
         paddingTop: "8rem",
       }}
     >

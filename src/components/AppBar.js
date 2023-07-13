@@ -23,8 +23,8 @@ import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import GoogleFontLoader from "react-google-font-loader";
 
-const drawerWidth = 240;
-const navItems = ["Home", "About", "Contact"];
+
+
 
 function DrawerAppBar(props) {
   const { window } = props;
@@ -89,9 +89,6 @@ function DrawerAppBar(props) {
       <AppBar
         style={{
           backgroundColor: "#8b6ddb",
-          marginBottom: "2rem",
-          
-        
         }}
         component="nav"
       >
