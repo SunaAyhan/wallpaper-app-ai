@@ -25,7 +25,7 @@
     }
 }
 
-body {
+#loadingBody {
     align-items: center;
     background-color: #FAFAFA;
     display: flex;

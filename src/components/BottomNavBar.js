@@ -24,7 +24,7 @@ export default function FixedBottomNavigation() {
     };
 
     return (
-        <Box sx={{ pb: 7 }}>
+        <Box sx={{ }}>
             {renderPage()}
 
             <CssBaseline />

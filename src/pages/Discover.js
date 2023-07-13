@@ -50,7 +50,7 @@ function DiscoverPage() {
     }, []);
         
     return <div>
-        <Box sx={{ height: '100vh', overflowY: 'scroll', backgroundColor: '#f4f4f4', padding:'1rem', marginTop:'10rem' }}>
+        <Box sx={{ height: '100vh', overflowY: 'scroll', backgroundColor: '#f4f4f4', padding:'1rem'}}>
         <GoogleFontLoader
                 fonts={[
                     {
@@ -66,7 +66,9 @@ function DiscoverPage() {
             </Typography>
             <Grid container spacing={1.5}>
                 {wallpapers?.map((wallpaper, index) => (
-                    <Grid item xs={6}  key={index}>
+                    <Grid item xs={6}  key={index}
+                    onClick={() => handleWallpaperClick(wallpaper)}
+                    >
                        
                          <img src={wallpaper.url} style={{
                    

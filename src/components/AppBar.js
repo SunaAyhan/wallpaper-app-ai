@@ -84,11 +84,10 @@ function DrawerAppBar(props) {
 
 
   return (
-    <Box sx={{ display: "flex", }}>
-      <CssBaseline />
       <AppBar
         style={{
           backgroundColor: "#8b6ddb",
+          position: "relative"
         }}
         component="nav"
       >
@@ -182,7 +181,6 @@ function DrawerAppBar(props) {
           
         </Toolbar>
       </AppBar>
-    </Box>
   );
 }
 

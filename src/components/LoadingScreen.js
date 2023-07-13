@@ -9,7 +9,7 @@ function LoadingScreen() {
     const navigate = useNavigate();
 
 
-    return <div>
+    return <div id='loadingBody' >
         <div style={{
             justifyContent: 'center',
             alignItems: 'center',
