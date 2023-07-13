@@ -35,8 +35,8 @@ function DiscoverPage() {
                 "prompt": "Fierce warrior girl with a mythical weapon in a fantasy setting with a dragon in the background cute anime poster, anime, ilya kuvshinov, trending on pixiv. a detailed portrait of emma watson as a female"
             }
         ]*/
-         const googleUser = '{"idToken": "test"}';
-        // const googleUser = localStorage.getItem("googleUser");
+        //  const googleUser = '{"idToken": "test"}';
+        const googleUser = localStorage.getItem("googleUser");
         axios.post('https://0x8a3cf5929896120565520424a8d6a55c956f82f3.diode.link/myCreations', { token: JSON.parse(googleUser).idToken })
             .then((response) => {
                 console.log(response.data);

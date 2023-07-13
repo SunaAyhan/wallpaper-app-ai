@@ -107,22 +107,66 @@ function WallpaperPage() {
 
 
 
-    return <div >
+    return <div style={{height:"100vh", position:"relative", overflow:"hidden"}} >
 
         <DrawerAppBar />
         <div style={{
-            padding: "2rem",
-           
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            marginRight: "2rem",
+            marginLeft: "2rem",
+            justifyContent: "center",
+            height: "90%",
+            position: "relative",
+            
         }} >
-          
-                <img src={generatedWallpaper.output[0].image} style={{
-                   
-                   width: "100%",
-                    borderRadius: "0.5rem",
-                    boxShadow: "0 0 0.5rem 0.1rem #8b6ddb",
-                    marginBottom: "1rem"
-                }}/>
-          
+          <div 
+            style={{
+                display: "flex",
+                flex: 1,
+                flexDirection: "column",
+                alignItems: "center",
+                justifyContent: "center",
+                borderRadius: "0.5rem",
+                width: "100%",
+                position: "relative",
+            }}
+          >
+            <div style={{
+                backgroundImage: `url(${generatedWallpaper.output[0].image})`,
+                backgroundSize: "contain",
+                backgroundPosition: "center",
+                backgroundRepeat: "no-repeat",
+                width: "100%",
+                height: "100%",
+                borderRadius: "0.5rem",
+                boxShadow: "0px 0px 10px 0px rgba(0,0,0,0.75)",
+                border: "2px solid white",
+                padding: "1rem",
+                margin: "1rem",
+                display: "flex",
+                flex: 1,
+                flexDirection: "column",
+                alignItems: "center",
+                justifyContent: "center",
+                position: "relative",
+            }}/>
+          </div>
+        </div>
+        <div style={{
+                display: "flex",
+                flexDirection: "row",
+                alignItems: "center",
+                justifyContent: "center",
+                padding: "1rem",
+                borderRadius: "0.5rem",
+                flex: 1,
+                padding: 0,
+                position: "fixed",
+                bottom: "1rem",
+                width: "100%",
+            }}>
             <Button style={{
                 backgroundColor: " #8b6ddb ",
                 color: "white",
@@ -163,8 +207,7 @@ function WallpaperPage() {
             variant="contained"> <SendIcon style={{
                 marginLeft: "0.5rem"
             }}/> </Button>
-
-        </div>
+            </div>
 
     </div>
 }

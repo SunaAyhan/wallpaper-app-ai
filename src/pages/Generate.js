@@ -75,8 +75,8 @@ function GeneratePage() {
   //set the loading state true while the wallpaper is being generated
   const generateWallpaper = async () => {
     setIsLoading(true);
-      const googleUser = '{"idToken": "test"}';
-    // const googleUser = localStorage.getItem("googleUser");
+      // const googleUser = '{"idToken": "test"}';
+    const googleUser = localStorage.getItem("googleUser");
     if (googleUser) {
       await axios
         .post(
