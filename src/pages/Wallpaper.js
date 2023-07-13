@@ -1,5 +1,5 @@
 import DrawerAppBar from "../components/AppBar";
-import { Button } from "@mui/material";
+import { Button, Card } from "@mui/material";
 
 import GetAppIcon from '@mui/icons-material/GetApp';
 import { useLocation } from "react-router";
@@ -107,23 +107,21 @@ function WallpaperPage() {
 
 
 
-    return <div style={{
-        backgroundImage: `url(${generatedWallpaper.output[0].image})`,
-        backgroundRepeat: "no-repeat",
-        backgroundPosition: "center",
-        minHeight: "100vh", // Arka planın tamamını kaplaması için sayfa yüksekliğini ayarlayabilirsiniz
-      
-    }} >
+    return <div >
 
         <DrawerAppBar />
         <div style={{
-            display: "flex",
-            justifyContent: "center",
-            position: "absolute",
-            bottom: "1rem",
-            width: "100%",
+            padding: "3rem",
+        }} >
           
-        }}>
+                <img src={generatedWallpaper.output[0].image} style={{
+                   
+                   width: "100%",
+                    borderRadius: "0.5rem",
+                    boxShadow: "0 0 0.5rem 0.1rem #8b6ddb",
+                    marginBottom: "1rem"
+                }}/>
+          
             <Button style={{
                 backgroundColor: " #8b6ddb ",
                 color: "white",

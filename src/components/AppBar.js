@@ -21,6 +21,7 @@ import { useNavigate } from "react-router-dom";
 import Chip from "@mui/material/Chip";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
+import GoogleFontLoader from "react-google-font-loader";
 
 const drawerWidth = 240;
 const navItems = ["Home", "About", "Contact"];
@@ -79,28 +80,8 @@ function DrawerAppBar(props) {
     setMobileOpen((prevState) => !prevState);
   };
 
-  const drawer = (
-    <Box onClick={handleDrawerToggle} sx={{ textAlign: "center" }}>
-      <Typography variant="h6" sx={{ my: 2 }}>
-        MUI
-      </Typography>
-      <Divider />
-      <List>
-        {navItems.map((item) => (
-          <ListItem key={item} disablePadding>
-            <ListItemButton sx={{ textAlign: "center" }}>
-              <ListItemText primary={item} />
-            </ListItemButton>
-          </ListItem>
-        ))}
-      </List>
-      <Divider />
-      
-    </Box>
-  );
 
-  const container =
-    window !== undefined ? () => window().document.body : undefined;
+
 
   return (
     <Box sx={{ display: "flex", }}>
@@ -109,9 +90,21 @@ function DrawerAppBar(props) {
         style={{
           backgroundColor: "#8b6ddb",
           marginBottom: "2rem",
+          
+        
         }}
         component="nav"
       >
+          <GoogleFontLoader
+                fonts={[
+                    {
+                        font: 'Changa',
+                        weights: [400, '400i'],
+                    },
+
+                ]}
+                subsets={['cyrillic-ext', 'greek']}
+            />
         <Toolbar>
           <IconButton
             color="white"
@@ -129,8 +122,8 @@ function DrawerAppBar(props) {
 
           <Typography
             sx={{
-              fontFamily: "Alegreya",
-              fontSize: "2rem",
+              fontFamily: "Changa",
+              fontSize: "1.5rem",
               justifyContent: "start",
               alignItems: "center",
               display: "flex",
@@ -148,7 +141,7 @@ function DrawerAppBar(props) {
                 style={{
                   border: "none",
                   borderRadius: "5px",
-                  fontFamily: "Alegreya",
+                  fontFamily: "Changa",
                 
                   textTransform: "none",
                   fontSize: "1.3rem",
@@ -157,7 +150,9 @@ function DrawerAppBar(props) {
                 onClick={handleBuyToken}
                 variant="outlined"
               >
-                Token: {usageLimits?.usageLeft}
+              <p style={{
+                fontFamily: "Changa",
+              }} >  Token: {usageLimits?.usageLeft}</p>
                 <AddCircleIcon
                   style={{
                     color: "white",
@@ -173,11 +168,12 @@ function DrawerAppBar(props) {
                 style={{
                   border: "3px solid ",
                   borderRadius: "5px",
-                  fontFamily: "Alegreya",
+                  fontFamily: "Changa",
                   backgroundColor: "#fff",
                   textTransform: "none",
-                  fontSize: "1.3rem",
+                  fontSize: "1rem",
                   color: "#8b6ddb",
+                  fontWeight: "bold",
                 }}
                 onClick={googleLogin}
                 variant="outlined"

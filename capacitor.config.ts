@@ -1,17 +1,18 @@
-import { CapacitorConfig } from '@capacitor/cli';
-import { KeyboardResize } from '@capacitor/keyboard';
+import { CapacitorConfig } from "@capacitor/cli";
+import { KeyboardResize } from "@capacitor/keyboard";
 
 const config: CapacitorConfig = {
-  appId: 'com.suna.sunayumi',
-  appName: 'Sunayumi',
-  webDir: 'build',
+  appId: "com.suna.sunayumi",
+  appName: "Sunayumi",
+  webDir: "build",
   server: {
-    androidScheme: 'https'
+    androidScheme: "https",
   },
   plugins: {
     GoogleAuth: {
-      scopes: ['openid'],
-      androidClientId: '153647853356-1n9mdr3406hdkkgb4bj55fg4bnjj7qqt.apps.googleusercontent.com',
+      scopes: ["openid"],
+      androidClientId:
+        "153647853356-1n9mdr3406hdkkgb4bj55fg4bnjj7qqt.apps.googleusercontent.com",
       forceCodeForRefreshToken: true,
     },
     CapacitorHttp: {
@@ -24,7 +25,6 @@ const config: CapacitorConfig = {
       resize: KeyboardResize.None,
     },
   },
-
 };
 
 export default config;

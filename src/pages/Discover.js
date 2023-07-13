@@ -2,6 +2,7 @@
 import { Box, Grid, Paper, Typography } from '@mui/material';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
+import GoogleFontLoader from 'react-google-font-loader';
 import { useNavigate } from 'react-router-dom';
 function DiscoverPage() {
     const navigate = useNavigate();
@@ -34,8 +35,8 @@ function DiscoverPage() {
                 "prompt": "Fierce warrior girl with a mythical weapon in a fantasy setting with a dragon in the background cute anime poster, anime, ilya kuvshinov, trending on pixiv. a detailed portrait of emma watson as a female"
             }
         ]*/
-        // const googleUser = '{"idToken": "test"}';
-        const googleUser = localStorage.getItem("googleUser");
+         const googleUser = '{"idToken": "test"}';
+        // const googleUser = localStorage.getItem("googleUser");
         axios.post('https://0x8a3cf5929896120565520424a8d6a55c956f82f3.diode.link/myCreations', { token: JSON.parse(googleUser).idToken })
             .then((response) => {
                 console.log(response.data);
@@ -49,25 +50,34 @@ function DiscoverPage() {
     }, []);
         
     return <div>
-        <Box sx={{ height: '100vh', overflowY: 'scroll', padding: '1rem', backgroundColor: '#f4f4f4' }}>
-            <Typography variant="h5" sx={{ fontWeight: 'bold', marginBottom: '1rem', fontFamily: 'Alegreya' }}>
+        <Box sx={{ height: '100vh', overflowY: 'scroll', backgroundColor: '#f4f4f4', padding:'1rem', marginTop:'10rem' }}>
+        <GoogleFontLoader
+                fonts={[
+                    {
+                        font: 'Changa',
+                        weights: [400, '400i'],
+                    },
+
+                ]}
+                subsets={['cyrillic-ext', 'greek']}
+            />
+            <Typography variant="h5" sx={{ fontWeight: 'bold', marginBottom: '1rem', fontFamily: 'Changa', color:'#8b6ddb ' }}>
                 My Creations
             </Typography>
             <Grid container spacing={1.5}>
                 {wallpapers?.map((wallpaper, index) => (
-                    <Grid item xs={6} sm={6} md={4} lg={3} key={index}>
-                        <Paper
-                            elevation={3}
-                            sx={{
-                                height: 300,
-                                backgroundImage: `url(${wallpaper.url})`,
-                                backgroundSize: 'cover',
-                                backgroundPosition: 'center',
-                                boxShadow: '0px 0px 10px 0px rgba(0,0,0,0.75)',
-                                border: '2px solid #f4f4f4',
-                            }}
-                            onClick={handleWallpaperClick.bind(this, wallpaper)}
-                        />
+                    <Grid item xs={6}  key={index}>
+                       
+                         <img src={wallpaper.url} style={{
+                   
+                   width: "100%",
+                    borderRadius: "0.5rem",
+                    boxShadow: "0 0 0.5rem 0.1rem #8b6ddb",
+                    marginBottom: "0.2rem",
+                   
+                }}/>
+          
+                      
                     </Grid>
                 ))}
             </Grid>

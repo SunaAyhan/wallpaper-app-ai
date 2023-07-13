@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { TextField, Button, Paper, Typography, Box, Card } from "@mui/material";
 import GoogleFontLoader from "react-google-font-loader";
 import { Link } from "react-router-dom";
@@ -8,9 +8,39 @@ import NorthEastIcon from "@mui/icons-material/NorthEast";
 import WallpaperPage from "./Wallpaper";
 import LoadingScreen from "../components/LoadingScreen";
 function GeneratePage() {
+  const [textFieldValue, setTextFieldValue] = useState("");
+  const [isTextFieldFocused, setIsTextFieldFocused] = useState(false);
+  const [isKeyboardOpen, setIsKeyboardOpen] = useState(false);
+  useEffect(() => {
+    // Add event listener for window resize
+    window.addEventListener("resize", handleWindowResize);
+
+    // Cleanup the event listener on component unmount
+    return () => {
+      window.removeEventListener("resize", handleWindowResize);
+    };
+  }, []);
+  const handleWindowResize = () => {
+    const windowHeight = window.innerHeight;
+
+    // Calculate the difference between the window height and the document body height
+    const bodyHeight = document.body.clientHeight;
+    const heightDifference = bodyHeight - windowHeight;
+
+    // If the height difference is positive, it means the keyboard is open
+    setIsKeyboardOpen(heightDifference > 0);
+  };
+
+  const handleKeyboardShow = () => {
+    setIsTextFieldFocused(true);
+  };
+
+  const handleKeyboardHide = () => {
+    setIsTextFieldFocused(false);
+  };
   const ButtonStyle = {
     backgroundColor: "white",
-    color: "#000",
+    color: "#8b6ddb    ",
     fontSize: "14px",
     fontWeight: "bold",
     textTransform: "none",
@@ -37,8 +67,7 @@ function GeneratePage() {
   });
 
   const [generatedWallpaper, setGeneratedWallpaper] = useState(null);
-  const [isTextFieldFocused, setIsTextFieldFocused] = useState(false);
-  const [textFieldValue, setTextFieldValue] = useState("");
+ 
   const [isLoading, setIsLoading] = useState(false);
 
   //Generate wallpaper by calling the API https://0x8a3cf5929896120565520424a8d6a55c956f82f3.diode.link/sdAI with body {token: googleUser.user_id, prompt: textFieldValue}
@@ -46,8 +75,8 @@ function GeneratePage() {
   //set the loading state true while the wallpaper is being generated
   const generateWallpaper = async () => {
     setIsLoading(true);
-    // const googleUser = '{"idToken": "test"}';
-    const googleUser = localStorage.getItem("googleUser");
+      const googleUser = '{"idToken": "test"}';
+    // const googleUser = localStorage.getItem("googleUser");
     if (googleUser) {
       await axios
         .post(
@@ -78,143 +107,141 @@ function GeneratePage() {
   return ( 
   <div>
     {isLoading ? <LoadingScreen /> : 
+    
       <Box
-        display="flex"
-        flexDirection="column"
-        alignItems="center"
-        padding={3}
+      display="flex"
+      flexDirection="column"
+      alignItems="center"
+      padding={3}
+      style={{
+        backgroundColor: "#f4f4f4",
+        overflow: "hidden",
+      
+        paddingTop: "8rem",
+      }}
+    >
+       <GoogleFontLoader
+                fonts={[
+                    {
+                        font: 'Changa',
+                        weights: [400, '400i'],
+                    },
+
+                ]}
+                subsets={['cyrillic-ext', 'greek']}
+            />
+      <Typography
         style={{
-          backgroundColor: "#f4f4f4", 
-          overflow: "hidden",
-          zIndex: -1,
+          marginBottom: "1rem",
+          fontWeight: "bold",
+          fontFamily: "Changa",
+          color: "#8b6ddb",
+         
+          
         }}
+        variant="h5"
+        gutterBottom
       >
-        <GoogleFontLoader
-          fonts={[
-            {
-              font: "Gorditas",
-              weights: [400, "400i"],
-            },
-          ]}
-          subsets={["cyrillic-ext", "greek"]}
+        Create Anime Girl Wallpaper
+      </Typography>
+      <Box
+        style={{
+          backgroundColor: "#ffffff",
+          borderRadius: 10,
+        }}
+        width="100%"
+        marginBottom={"2rem"}
+      >
+        <TextField
+          style={{
+            fontFamily: "Changa !important",
+          }}
+          name="Generate Wallpaper"
+          fontFamily="Changa"
+          label="Explain Your Dream Wallpaper"
+          variant="outlined"
+          fullWidth
+          value={textFieldValue}
+          onChange={(e) => setTextFieldValue(e.target.value)}
+          onFocus={() => setIsTextFieldFocused(true)}
+          onBlur={() => setIsTextFieldFocused(false)}
+          multiline
+          rows={4}
+          placeholder="watching nightsky sitting on grass"
         />
+      </Box>
+      <Button
+        variant="contained"
+        color="primary"
+        style={{
+          backgroundColor: "#8b6ddb",
+          textTransform: "none",
+          fontFamily: "Changa",
+          marginBottom: "5rem",
+          width: "100%",
+        }}
+        onClick={generateWallpaper}
+        disabled={isTextFieldFocused}
+      >
         <Typography
           style={{
-            marginBottom: "2rem",
-            fontWeight: "bold",
-            fontFamily: "Alegreya",
-            marginTop: "4rem",
+            fontFamily: "Changa",
+            fontSize: "1.3rem",
           }}
-          variant="h5"
-          gutterBottom
         >
-          Create Anime Girl Wallpaper
+          Create
         </Typography>
-        <Box
+        <NorthEastIcon
+              disabled={isTextFieldFocused}
           style={{
-            backgroundColor: "#ffffff",
-            borderRadius: 10,
+            marginLeft: "0.5rem",
+            fontFamily: "Changa",
+           
           }}
-          width="100%"
-          marginBottom={"2rem"}
-        >
-          <TextField
-            style={{
-              fontFamily: "Alegreya",
-            }}
-            name="Generate Wallpaper"
-            label="Explain Your Dream Wallpaper"
-            variant="outlined"
-            fullWidth
-            value={textFieldValue}
-            onChange={(e) => setTextFieldValue(e.target.value)}
-            onFocus={() => setIsTextFieldFocused(true)}
-            onBlur={() => setIsTextFieldFocused(false)}
-            multiline
-            rows={8}
-            placeholder="watching nightsky sitting on grass"
-          />
-        </Box>
-        <Button
-          variant="contained"
-          color="primary"
-          style={{
-            backgroundColor: "#8b6ddb",
-            textTransform: "none",
-            fontFamily: "Alegreya",
-            marginBottom: "5rem",
-            width: "100%",
-          }}
-          onClick={generateWallpaper}
-          disabled={isLoading}
-        >
-          <Typography
-            style={{
-              fontFamily: "Alegreya",
-              fontSize: "1.3rem",
-             
-            }}
-          >
-            Create
-          </Typography>
-          <NorthEastIcon
-            style={{
-              marginLeft: "0.5rem",
-              fontFamily: "Alegreya",
-              color: "white",
-            }}
-          />
-        </Button>
-        <Button style={ButtonStyle} onClick={(e) => setTextFieldValue(e.target.textContent)} variant="contained">
-          Futuristic cyberpunk anime girl with a katana in a neon city
-        </Button>
-        <Button style={ButtonStyle} onClick={(e) => setTextFieldValue(e.target.textContent)} variant="contained">
-          Elegant anime girl with cherry blossom petals in the background
-        </Button>
-        <Button style={ButtonStyle} onClick={(e) => setTextFieldValue(e.target.textContent)} variant="contained">
-          Fierce warrior girl with a mythical weapon in a fantasy setting with a dragon in the background
-        </Button>
-        {/* <Button style={ButtonStyle} variant="contained">
-          Playful anime girl surrounded by floating balloons..
-        </Button>
-        <Button style={ButtonStyle} variant="contained">
-          Steampunk engineer anime girl with mechanical gadgets and goggles..
-        </Button> */}
-        {/* {generatedWallpaper && (
-          <Paper
-            elevation={3}
-            sx={{
-              backgroundColor: "#8b6ddb",
-              height: 200,
-              width: '100%',
-              marginTop: 3,
-              border: 'none'
-            }}
-            onClick={handleWallpaperClick}
-          >
-            <img
-              src={generatedWallpaper.output[0].image}
-              alt="Generated Wallpaper"
-              style={{
-                backgroundRepeat: "no-repeat",
-                backgroundPosition: "center",
-                minHeight: "100%"
-              }}
-            />
-          </Paper>
-        )} */}
-        <p
-          style={{
-            position: "absolute",
-            bottom: "5rem",
-            fontFamily: "Alegreya",
-            fontSize: "12px",
-            color: "grey",
-          }}
-        >
-       
-        </p>
-      </Box>
+        />
+      </Button>
+      <Button
+        style={ButtonStyle}
+        onClick={(e) =>
+          setTextFieldValue(
+            "Futuristic cyberpunk anime girl with a katana in a neon city"
+          )
+        }
+        variant="contained"
+      >
+        <p style={{
+          fontFamily: "Changa",
+        }} >      Futuristic cyberpunk anime girl with a katana in a neon city </p>
+  
+      </Button>
+      <Button
+        style={ButtonStyle}
+        onClick={(e) =>
+          setTextFieldValue(
+            "Elegant anime girl with cherry blossom petals in the background"
+          )
+        }
+        variant="contained"
+      >
+       <p  style={{
+          fontFamily: "Changa",
+        }}>Elegant anime girl with cherry blossom petals in the background</p> 
+      </Button>
+      <Button
+        style={ButtonStyle}
+        onClick={(e) =>
+          setTextFieldValue(
+            "Fierce warrior girl with a mythical weapon in a fantasy setting with a dragon in the background"
+          )
+        }
+        variant="contained"
+      >
+      <p  style={{
+          fontFamily: "Changa",
+        }}>Fierce warrior girl with a mythical weapon in a fantasy setting with a dragon in the background </p>  
+      </Button>
+      {/* Rest of your code */}
+    </Box>
 } </div>
   );}
 

@@ -1,6 +1,14 @@
 apply plugin: 'com.android.application'
 
 android {
+    signingConfigs {
+        debug {
+            storeFile file('C:\\Documents\\sunayumi-imza\\Sunayumi.jks')
+            storePassword '159753'
+            keyAlias 'key0'
+            keyPassword '159753'
+        }
+    }
     namespace "com.suna.sunayumi"
     compileSdkVersion rootProject.ext.compileSdkVersion
     defaultConfig {

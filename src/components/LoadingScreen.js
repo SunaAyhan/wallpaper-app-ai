@@ -3,6 +3,7 @@ import { Box, Grid, Paper, Typography } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 
 import './LoadingScreen.css';
+import GoogleFontLoader from 'react-google-font-loader';
 
 function LoadingScreen() {
     const navigate = useNavigate();
@@ -15,6 +16,16 @@ function LoadingScreen() {
             display: 'flex',
             height: '100vh',
         }}  >
+               <GoogleFontLoader
+                fonts={[
+                    {
+                        font: 'Changa',
+                        weights: [400, '400i'],
+                    },
+
+                ]}
+                subsets={['cyrillic-ext', 'greek']}
+            />
             <Grid item > <Grid item><svg width="150px" height="150px" version="1.1" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
                 <g id="sparkles">
                     <path d="m55.301 8.3008h0.19922c0.5 0 0.89844-0.30078 1-0.80078l0.60156-3.3984c0.10156-0.5-0.30078-1.1016-0.80078-1.1992-0.5-0.10156-1.1016 0.30078-1.1992 0.80078l-0.60156 3.3984c-0.10156 0.59766 0.30078 1.0977 0.80078 1.1992z"></path>

@@ -31,7 +31,7 @@ export default function FixedBottomNavigation() {
             <GoogleFontLoader
                 fonts={[
                     {
-                        font: 'Gorditas',
+                        font: 'Changa',
                         weights: [400, '400i'],
                     },
 
@@ -49,7 +49,7 @@ export default function FixedBottomNavigation() {
                         backgroundColor: '#8b6ddb',
                         '& .Mui-selected': {
                             color: 'white !important',
-                            fontFamily: 'Alegreya',
+                            fontFamily: 'Changa',
                             // İkon rengi ve yazı rengi için mor (purple) renk
                         },
 
