@@ -14,7 +14,7 @@ function LoadingScreen() {
             justifyContent: 'center',
             alignItems: 'center',
             display: 'flex',
-            height: '100vh',
+          
         }}  >
                <GoogleFontLoader
                 fonts={[

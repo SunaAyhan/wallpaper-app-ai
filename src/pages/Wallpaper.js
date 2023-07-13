@@ -111,7 +111,8 @@ function WallpaperPage() {
 
         <DrawerAppBar />
         <div style={{
-            padding: "3rem",
+            padding: "2rem",
+           
         }} >
           
                 <img src={generatedWallpaper.output[0].image} style={{

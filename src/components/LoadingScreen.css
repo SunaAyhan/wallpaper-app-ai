@@ -26,7 +26,7 @@
 }
 
 #loadingBody {
-    align-items: center;
+    align-items: center  !important;
     background-color: #FAFAFA;
     display: flex;
     height: 100vh;
