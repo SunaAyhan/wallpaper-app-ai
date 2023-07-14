@@ -37,16 +37,23 @@ function DiscoverPage() {
         ]*/
         //  const googleUser = '{"idToken": "test"}';
         const googleUser = localStorage.getItem("googleUser");
+        if (googleUser){
         axios.post('https://0x8a3cf5929896120565520424a8d6a55c956f82f3.diode.link/myCreations', { token: JSON.parse(googleUser).idToken })
             .then((response) => {
                 console.log(response.data);
                 if (response.data.error) {
-                }else
+                    if (response.data.error === "Invalid token") {
+                      localStorage.removeItem("googleUser");
+                    }
+                } else {
                 setWallpapers(response.data);
+                }
             })
-            .catch((error) => {
-                console.log(error);
-            });
+            .catch((err) => {
+                alert("Error generating wallpaper: " + err);
+                console.log("err", err);
+              });
+        }
     }, []);
         
     return <div>

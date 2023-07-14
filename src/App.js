@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import logo from "./logo.svg";
 import "./App.css";
 import HomePage from "./pages/HomePage";
@@ -8,6 +8,8 @@ import LoadingScreen from "./components/LoadingScreen";
 
 function App() {
   const [isLoading, setIsLoading] = useState(false);
+
+  
   return (
     <div className="App">
       <BrowserRouter>
