@@ -9,6 +9,19 @@ import LoadingScreen from "./components/LoadingScreen";
 function App() {
   const [isLoading, setIsLoading] = useState(false);
 
+  useEffect(() => {
+    // handleBackButton();
+    const script = document.createElement('script');
+    
+    script.innerHTML = `function  pressBack(){
+      window.history.back();
+    }`;
+    document.body.appendChild(script);
+
+    return () => {
+      document.body.removeChild(script);
+    };
+  }, []);
   
   return (
     <div className="App">

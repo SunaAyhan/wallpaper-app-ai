@@ -3,7 +3,7 @@ import { KeyboardResize } from "@capacitor/keyboard";
 
 const config: CapacitorConfig = {
   appId: "com.suna.sunayumi",
-  appName: "Sunayumi",
+  appName: "Sunayumi Anime AI",
   webDir: "build",
   server: {
     androidScheme: "https",

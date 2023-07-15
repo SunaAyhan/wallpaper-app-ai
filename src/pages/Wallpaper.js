@@ -81,7 +81,6 @@ function WallpaperPage() {
                 url: savedFile.uri,
                 dialogTitle: 'Share this wallpaper'
             });
-            alert("File saved to: " + savedFile.uri);
         }).catch((err) => {
             alert("err: " + err);
         });

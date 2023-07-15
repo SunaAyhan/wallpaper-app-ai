@@ -176,11 +176,11 @@ function GeneratePage() {
           backgroundColor: "#8b6ddb",
           textTransform: "none",
           fontFamily: "Changa",
-          marginBottom: "5rem",
+          marginBottom: "2rem",
           width: "100%",
         }}
         onClick={generateWallpaper}
-        disabled={isTextFieldFocused}
+        
       >
         <Typography
           style={{
@@ -199,6 +199,19 @@ function GeneratePage() {
           }}
         />
       </Button>
+      <Typography
+        style={{
+          marginBottom: "1rem",
+          fontWeight: "bold",
+          fontFamily: "Changa",
+          color: "#8b6ddb",
+        }}
+        variant="h5"
+        gutterBottom
+      >
+        Get Inspired
+      </Typography>
+      
       <Button
         style={ButtonStyle}
         onClick={(e) =>
@@ -239,7 +252,20 @@ function GeneratePage() {
           fontFamily: "Changa",
         }}>Fierce warrior girl with a mythical weapon in a fantasy setting with a dragon in the background </p>  
       </Button>
-      {/* Rest of your code */}
+      <Button
+        style={ButtonStyle}
+        onClick={(e) =>
+          setTextFieldValue(
+            "Dancing under rain moonlight"
+          )
+        }
+        variant="contained"
+      >
+      <p  style={{
+          fontFamily: "Changa",
+        }}> Dancing under rain moonlight </p>
+      </Button>
+      
     </Box>
 } </div>
   );}

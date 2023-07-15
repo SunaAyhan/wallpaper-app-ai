@@ -87,7 +87,7 @@ function DrawerAppBar(props) {
       <AppBar
         style={{
           backgroundColor: "#8b6ddb",
-          position: "relative"
+          position: "sticky"
         }}
         component="nav"
       >
