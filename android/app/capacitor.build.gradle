@@ -15,6 +15,7 @@ dependencies {
     implementation project(':capacitor-keyboard')
     implementation project(':capacitor-share')
     implementation project(':codetrix-studio-capacitor-google-auth')
+    implementation project(':capacitor-plugin-qonversion')
     implementation project(':capacitor-wallpaper')
 
 }

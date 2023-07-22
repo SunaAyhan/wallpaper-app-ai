@@ -18,11 +18,10 @@ import Button from "@mui/material/Button";
 import { GoogleAuth } from "@codetrix-studio/capacitor-google-auth";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import Chip from "@mui/material/Chip";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import GoogleFontLoader from "react-google-font-loader";
-
+import { QonversionPlugin } from "capacitor-plugin-qonversion";
 
 
 
@@ -33,6 +32,8 @@ function DrawerAppBar(props) {
   const [userLocal, setUserLocal] = React.useState(null);
   const [usageLimits, setUsageLimits] = React.useState(null);
   const navigate = useNavigate();
+  //payment processed state
+  const [paymentProcessing, setPaymentProcessing] = React.useState(false);
 
   const handleGoBack = () => {
     navigate(-1); // Bir önceki sayfaya gitmek için -1 parametresini kullanın
@@ -40,11 +41,54 @@ function DrawerAppBar(props) {
   const googleLogin = async () => {
     const googleUser = await GoogleAuth.signIn();
     //store user details in local storage
-    localStorage.setItem("googleUser", JSON.stringify(googleUser));
-    setUserLocal(googleUser);
+    if(googleUser) {
+      localStorage.setItem("googleUser", JSON.stringify(googleUser));
+      setUserLocal(googleUser);
+      const googleUserQ = localStorage.getItem("googleUser");
+      QonversionPlugin.identify({
+        userId: JSON.parse(googleUserQ).id,
+      });
+    }
   };
-  const handleBuyToken = () => {
-    alert("Currently not available");
+  const handleBuyToken = async () => {
+    const currentUsageLimits = usageLimits.usageLeft;
+    const products = await QonversionPlugin.products();
+    const purchase = await QonversionPlugin.purchase({
+      productId: "token10",
+    }).then((res) => {
+      setPaymentProcessing(true);
+      alert("Payment successful. It's now processing.");
+    }).catch((err) => {
+      alert("Payment failed. If you think this is a mistake, you can restore your purchase by clicking on the + icon again.");
+      return;
+    });
+    await QonversionPlugin.syncPurchases();
+    //check if purchase is processed by api every 5 seconds
+    const interval = setInterval(async () => {
+      const googleUser = localStorage.getItem("googleUser");
+      const usageLimits = await axios
+        .post(
+          "https://0x8a3cf5929896120565520424a8d6a55c956f82f3.diode.link/login",
+          { token: JSON.parse(googleUser).idToken }
+        )
+        .then((res) => {
+          if (res.data.error) {
+            if (res.data.error === "Invalid token") {
+              localStorage.removeItem("googleUser");
+              setUser(null);
+            }
+          } else {
+            if (res.data.usageLeft > currentUsageLimits) {
+              setUsageLimits(res.data);
+              clearInterval(interval);
+              setPaymentProcessing(false);
+            }
+          }
+        })
+        .catch((err) => {
+          console.log("err", err);
+        });
+    }, 5000);
   };
 
   React.useEffect(() => {
@@ -74,7 +118,7 @@ function DrawerAppBar(props) {
         });
       setUser(JSON.parse(googleUser));
     }
-  }, [userLocal]);
+  }, [userLocal ]);
 
   const handleDrawerToggle = () => {
     setMobileOpen((prevState) => !prevState);
@@ -148,7 +192,7 @@ function DrawerAppBar(props) {
               >
               <p style={{
                 fontFamily: "Changa",
-              }} >  Token: {usageLimits?.usageLeft}</p>
+              }} > {paymentProcessing ? "Processing..." :  "Token: "+ (usageLimits? usageLimits.usageLeft : "fetching...")}</p>
                 <AddCircleIcon
                   style={{
                     color: "white",

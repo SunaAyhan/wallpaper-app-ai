@@ -5,11 +5,26 @@ import HomePage from "./pages/HomePage";
 import { BrowserRouter, Route, Routes, Redirect } from "react-router-dom";
 import WallpaperPage from "./pages/Wallpaper";
 import LoadingScreen from "./components/LoadingScreen";
-
+import { QonversionPlugin } from "capacitor-plugin-qonversion";
+import qonversionKey from "./qonversionKey.json";
 function App() {
-  const [isLoading, setIsLoading] = useState(false);
 
-  useEffect(() => {
+  useEffect(async () => {
+    await QonversionPlugin.launchWithKey({
+      key: qonversionKey.key,
+      observerMode: false
+    }).then((res) => {
+      console.log("QonversionPlugin.launchWithKey: "+res);
+    }).catch((err) => {
+      console.log("QonversionPlugin.launchWithKey: "+err);
+    });
+    const googleUser = localStorage.getItem("googleUser");
+    if (googleUser) {
+      QonversionPlugin.identify({
+        userId: JSON.parse(googleUser).id,
+      });
+    }
+
     // handleBackButton();
     const script = document.createElement('script');
     
@@ -35,7 +50,7 @@ function App() {
          
             <Route
               path="/"
-              element={<HomePage setIsLoading={setIsLoading} />}
+              element={<HomePage />}
             />
             <Route path="/wallpaper" element={<WallpaperPage />} />
             <Route path="/loading" element={<LoadingScreen />} />

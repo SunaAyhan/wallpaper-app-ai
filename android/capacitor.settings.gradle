@@ -20,5 +20,8 @@ project(':capacitor-share').projectDir = new File('../node_modules/@capacitor/sh
 include ':codetrix-studio-capacitor-google-auth'
 project(':codetrix-studio-capacitor-google-auth').projectDir = new File('../node_modules/@codetrix-studio/capacitor-google-auth/android')
 
+include ':capacitor-plugin-qonversion'
+project(':capacitor-plugin-qonversion').projectDir = new File('../node_modules/capacitor-plugin-qonversion/android')
+
 include ':capacitor-wallpaper'
 project(':capacitor-wallpaper').projectDir = new File('../node_modules/capacitor-wallpaper/android')
