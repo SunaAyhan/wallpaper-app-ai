@@ -10,7 +10,10 @@ import qonversionKey from "./qonversionKey.json";
 import { AdMob } from '@capacitor-community/admob';
 
 function App() {
-
+  const [user, setUser] = useState(null);
+  const [userLocal, setUserLocal] = useState(null);
+  const [usageLimits, setUsageLimits] = useState(null);
+  const [paymentProcessing, setPaymentProcessing] = useState(false);
   useEffect( () => {
     const awaitGoogleAds = async () => {
       const { status } = await AdMob.trackingAuthorizationStatus();
@@ -20,7 +23,7 @@ function App() {
     
       AdMob.initialize({
         requestTrackingAuthorization: true,
-        testingDevices: ['2077ef9a63d2b398840261c8221a0c9b'],
+        testingDevices: ['00c2b59b28648e0b'],
         initializeForTesting: true,
       });
     }
@@ -73,9 +76,9 @@ function App() {
          
             <Route
               path="/"
-              element={<HomePage />}
+              element={<HomePage user={user} setUser={setUser} userLocal={userLocal} setUserLocal={setUserLocal} usageLimits={usageLimits} setUsageLimits={setUsageLimits} paymentProcessing={paymentProcessing} setPaymentProcessing={setPaymentProcessing}/>}
             />
-            <Route path="/wallpaper" element={<WallpaperPage />} />
+            <Route path="/wallpaper" element={<WallpaperPage user={user} setUser={setUser} userLocal={userLocal} setUserLocal={setUserLocal} usageLimits={usageLimits} setUsageLimits={setUsageLimits} paymentProcessing={paymentProcessing} setPaymentProcessing={setPaymentProcessing}/>} />
             <Route path="/loading" element={<LoadingScreen />} />
           </Routes>{" "}
         </div>{" "}

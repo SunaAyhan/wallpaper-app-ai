@@ -324,14 +324,53 @@ function GeneratePage({setPaymentProcessing, usageLimits, setUsageLimits, user})
         style={ButtonStyle}
         onClick={(e) =>
           setTextFieldValue(
-            "Dancing under rain moonlight"
+            "Dancing under rain moon light"
           )
         }
         variant="contained"
       >
       <p  style={{
           fontFamily: "Changa",
-        }}> Dancing under rain moonlight </p>
+        }}> Dancing under rain moon light</p>
+      </Button>
+      <Button
+        style={ButtonStyle}
+        onClick={(e) =>
+          setTextFieldValue(
+            "Celestial Goddess with a halo and wings"
+          )
+        }
+        variant="contained"
+      >
+      <p  style={{
+          fontFamily: "Changa",
+        }}>Celestial Goddess with a halo and wings</p>
+      </Button>
+      <Button
+        style={ButtonStyle}
+        onClick={(e) =>
+          setTextFieldValue(
+            "Underwater Mermaid Explorer"
+          )
+        }
+        variant="contained"
+      >
+      <p  style={{
+          fontFamily: "Changa",
+        }}>Underwater Mermaid Explorer</p>
+      </Button>
+      <Button
+        style={ButtonStyle}
+        onClick={(e) =>
+          setTextFieldValue(
+            "Neo-Tokyo Street Punk"
+          )
+        }
+        variant="contained"
+      >
+      <p  style={{
+          fontFamily: "Changa",
+        }}>Neo-Tokyo Street Punk</p>
       </Button>
       
     </Box>

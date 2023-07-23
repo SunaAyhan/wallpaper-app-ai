@@ -12,7 +12,7 @@ import { useState } from "react";
 import SendIcon from '@mui/icons-material/Send';
 const { Wallpaper } = Plugins;
 
-function WallpaperPage() {
+function WallpaperPage({user, setUser, userLocal, setUserLocal, usageLimits, setUsageLimits, paymentProcessing, setPaymentProcessing}) {
     //get the generated wallpaper from the location state
     const generatedWallpaper = useLocation().state.generatedWallpaper;
     const [status, setStatus] = useState("");
@@ -108,7 +108,7 @@ function WallpaperPage() {
 
     return <div style={{height:"100vh", position:"relative", overflow:"hidden"}} >
 
-        <DrawerAppBar />
+        <DrawerAppBar user={user} setUser={setUser} userLocal={userLocal} setUserLocal={setUserLocal} usageLimits={usageLimits} setUsageLimits={setUsageLimits} paymentProcessing={paymentProcessing} setPaymentProcessing={setPaymentProcessing}/>
         <div style={{
             display: "flex",
             flexDirection: "column",

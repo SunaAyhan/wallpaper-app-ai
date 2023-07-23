@@ -18,7 +18,6 @@ function BuyTokensPopup({setPaymentProcessing, setBuyTokensPopupOpen, usageLimit
             console.log(rewardItem);
           });
         const options = {
-            // isTesting: true,
             adId: 'ca-app-pub-3871453776891057/8301575239',
             ssv: {
                 userId: userID,
@@ -26,10 +25,9 @@ function BuyTokensPopup({setPaymentProcessing, setBuyTokensPopupOpen, usageLimit
         };
         await AdMob.prepareRewardVideoAd(options);
         await AdMob.showRewardVideoAd();
-        alert("Congratulations! You have earned 2 token");
+        //wait for 32 seconds for ad to end
+        await new Promise(resolve => setTimeout(resolve, 32000));    
         setIsAdLoading(false);
-        //wait for 2 seconds for ad to load
-        await new Promise(resolve => setTimeout(resolve, 2000));
         //check new usage limits once
         const googleUser = localStorage.getItem("googleUser");
         const usageLimits = await axios.post(
