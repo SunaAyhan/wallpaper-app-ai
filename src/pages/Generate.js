@@ -7,10 +7,13 @@ import axios from "axios";
 import NorthEastIcon from "@mui/icons-material/NorthEast";
 import WallpaperPage from "./Wallpaper";
 import LoadingScreen from "../components/LoadingScreen";
-function GeneratePage() {
+import { LocalFlorist } from "@mui/icons-material";
+import BuyTokensPopup from "../components/BuyTokensPopup";
+function GeneratePage({setPaymentProcessing, usageLimits, setUsageLimits, user}) {
   const [textFieldValue, setTextFieldValue] = useState("");
   const [isTextFieldFocused, setIsTextFieldFocused] = useState(false);
   const [isKeyboardOpen, setIsKeyboardOpen] = useState(false);
+  const [buyTokensPopupOpen, setBuyTokensPopupOpen] = useState(false);
   useEffect(() => {
     // Add event listener for window resize
     window.addEventListener("resize", handleWindowResize);
@@ -87,6 +90,44 @@ function GeneratePage() {
           if (res.data.error) {
             if (res.data.error === "Invalid token") {
               localStorage.removeItem("googleUser");
+            }else if(res.data.error === "Not enough tokens"){
+              setIsLoading(false);
+              setBuyTokensPopupOpen(true);
+            }
+          } else {
+            setGeneratedWallpaper(res.data);
+            // Navigate to the wallpaper page with the generated wallpaper
+            navigate("/wallpaper", { state: { generatedWallpaper: res.data } });
+          }
+        })
+        .catch((err) => {
+          alert("Error generating wallpaper: " + err);
+          console.log("err", err);
+        });
+    } else {
+      alert("Please login");
+    }
+    setIsLoading(false);
+  };
+
+  // Feeling lucky button
+  const handleFeelingLucky = async () => {
+    setIsLoading(true);
+      // const googleUser = '{"idToken": "test"}';
+    const googleUser = localStorage.getItem("googleUser");
+    if (googleUser) {
+      await axios
+        .post(
+          "https://0x8a3cf5929896120565520424a8d6a55c956f82f3.diode.link/sdAI",
+          { token: JSON.parse(googleUser).idToken, prompt: "" }
+        )
+        .then((res) => {
+          if (res.data.error) {
+            if (res.data.error === "Invalid token") {
+              localStorage.removeItem("googleUser");
+            }else if(res.data.error === "Not enough tokens"){
+              setIsLoading(false);
+              setBuyTokensPopupOpen(true);
             }
           } else {
             setGeneratedWallpaper(res.data);
@@ -199,6 +240,33 @@ function GeneratePage() {
           }}
         />
       </Button>
+      <Button
+        variant="contained"
+        color="primary"
+        style={{
+          backgroundColor: "#60BB4C",
+          textTransform: "none",
+          fontFamily: "Changa",
+          marginBottom: "2rem",
+          width: "100%",
+        }}
+        onClick={handleFeelingLucky} 
+      >
+        <Typography
+          style={{
+            fontFamily: "Changa",
+            fontSize: "1.3rem",
+          }}
+        >
+          Feeling Lucky
+        </Typography>
+        <LocalFlorist
+          style={{
+            marginLeft: "0.5rem",
+            fontFamily: "Changa",
+          }}
+        />
+      </Button>
       <Typography
         style={{
           marginBottom: "1rem",
@@ -267,7 +335,17 @@ function GeneratePage() {
       </Button>
       
     </Box>
-} </div>
+}{buyTokensPopupOpen && (
+        <BuyTokensPopup
+          setPaymentProcessing={setPaymentProcessing}
+          setBuyTokensPopupOpen={setBuyTokensPopupOpen}
+          usageLimits={usageLimits}
+          setUsageLimits={setUsageLimits}
+          userID={user?.id}
+        />
+      )  
+      } 
+</div>
   );}
 
 export default GeneratePage;

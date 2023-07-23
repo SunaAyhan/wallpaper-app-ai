@@ -4,4 +4,5 @@
     <string name="title_activity_main">Sunayumi</string>
     <string name="package_name">com.suna.sunayumi</string>
     <string name="custom_url_scheme">com.suna.sunayumi</string>
+    <string name="admob_app_id">ca-app-pub-3871453776891057~3292791132</string>
 </resources>

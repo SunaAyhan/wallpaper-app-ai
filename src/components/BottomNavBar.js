@@ -12,12 +12,16 @@ import DiscoverPage from '../pages/Discover';
 import GeneratePage from '../pages/Generate';
 import GoogleFontLoader from 'react-google-font-loader';
 
-export default function FixedBottomNavigation() {
+export default function FixedBottomNavigation({setPaymentProcessing, usageLimits, setUsageLimits, user}) {
     const [value, setValue] = React.useState(0);
 
     const renderPage = () => {
         if (value === 0) {
-            return <GeneratePage />;
+            return <GeneratePage 
+            setPaymentProcessing={setPaymentProcessing}
+            usageLimits={usageLimits}
+            setUsageLimits={setUsageLimits}
+            user={user}/>;
         } else if (value === 1) {
             return <DiscoverPage />;
         }

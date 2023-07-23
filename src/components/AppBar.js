@@ -22,18 +22,16 @@ import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import GoogleFontLoader from "react-google-font-loader";
 import { QonversionPlugin } from "capacitor-plugin-qonversion";
+import BuyTokensPopup from "./BuyTokensPopup";
 
 
 
 function DrawerAppBar(props) {
-  const { window } = props;
+  const { window, user, setUser, setUserLocal, userLocal, usageLimits, setUsageLimits, paymentProcessing, setPaymentProcessing } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
-  const [user, setUser] = React.useState(null);
-  const [userLocal, setUserLocal] = React.useState(null);
-  const [usageLimits, setUsageLimits] = React.useState(null);
+  const [buyTokensPopupOpen, setBuyTokensPopupOpen] = React.useState(false);
   const navigate = useNavigate();
   //payment processed state
-  const [paymentProcessing, setPaymentProcessing] = React.useState(false);
 
   const handleGoBack = () => {
     navigate(-1); // Bir önceki sayfaya gitmek için -1 parametresini kullanın
@@ -50,45 +48,9 @@ function DrawerAppBar(props) {
       });
     }
   };
+  
   const handleBuyToken = async () => {
-    const currentUsageLimits = usageLimits.usageLeft;
-    const products = await QonversionPlugin.products();
-    const purchase = await QonversionPlugin.purchase({
-      productId: "token10",
-    }).then((res) => {
-      setPaymentProcessing(true);
-      alert("Payment successful. It's now processing.");
-    }).catch((err) => {
-      alert("Payment failed. If you think this is a mistake, you can restore your purchase by clicking on the + icon again.");
-      return;
-    });
-    await QonversionPlugin.syncPurchases();
-    //check if purchase is processed by api every 5 seconds
-    const interval = setInterval(async () => {
-      const googleUser = localStorage.getItem("googleUser");
-      const usageLimits = await axios
-        .post(
-          "https://0x8a3cf5929896120565520424a8d6a55c956f82f3.diode.link/login",
-          { token: JSON.parse(googleUser).idToken }
-        )
-        .then((res) => {
-          if (res.data.error) {
-            if (res.data.error === "Invalid token") {
-              localStorage.removeItem("googleUser");
-              setUser(null);
-            }
-          } else {
-            if (res.data.usageLeft > currentUsageLimits) {
-              setUsageLimits(res.data);
-              clearInterval(interval);
-              setPaymentProcessing(false);
-            }
-          }
-        })
-        .catch((err) => {
-          console.log("err", err);
-        });
-    }, 5000);
+    setBuyTokensPopupOpen(true);
   };
 
   React.useEffect(() => {
@@ -128,6 +90,7 @@ function DrawerAppBar(props) {
 
 
   return (
+      <>
       <AppBar
         style={{
           backgroundColor: "#8b6ddb",
@@ -225,7 +188,19 @@ function DrawerAppBar(props) {
           
         </Toolbar>
       </AppBar>
+      {buyTokensPopupOpen && (
+        <BuyTokensPopup
+          setPaymentProcessing={setPaymentProcessing}
+          setBuyTokensPopupOpen={setBuyTokensPopupOpen}
+          usageLimits={usageLimits}
+          setUsageLimits={setUsageLimits}
+          userID={user.id}
+        />
+      )  
+      }
+      </>
   );
+  
 }
 
 DrawerAppBar.propTypes = {

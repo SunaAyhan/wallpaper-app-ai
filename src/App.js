@@ -7,16 +7,39 @@ import WallpaperPage from "./pages/Wallpaper";
 import LoadingScreen from "./components/LoadingScreen";
 import { QonversionPlugin } from "capacitor-plugin-qonversion";
 import qonversionKey from "./qonversionKey.json";
+import { AdMob } from '@capacitor-community/admob';
+
 function App() {
 
-  useEffect(async () => {
-    await QonversionPlugin.launchWithKey({
-      key: qonversionKey.key,
-      observerMode: false
-    }).then((res) => {
-      console.log("QonversionPlugin.launchWithKey: "+res);
-    }).catch((err) => {
-      console.log("QonversionPlugin.launchWithKey: "+err);
+  useEffect( () => {
+    const awaitGoogleAds = async () => {
+      const { status } = await AdMob.trackingAuthorizationStatus();
+      if (status === 'notDetermined') {
+        alert("notDetermined");
+      }
+    
+      AdMob.initialize({
+        requestTrackingAuthorization: true,
+        testingDevices: ['2077ef9a63d2b398840261c8221a0c9b'],
+        initializeForTesting: true,
+      });
+    }
+    awaitGoogleAds().catch((err) => {
+      alert("awaitGoogleAds: "+err);
+    });
+
+    const awaitQonversion = async () => {
+      await QonversionPlugin.launchWithKey({
+        key: qonversionKey.key,
+        observerMode: false
+      }).then((res) => {
+        console.log("QonversionPlugin.launchWithKey: "+res);
+      }).catch((err) => {
+        console.log("QonversionPlugin.launchWithKey: "+err);
+      });
+    }
+    awaitQonversion().catch((err) => {
+      alert("awaitQonversion: "+err);
     });
     const googleUser = localStorage.getItem("googleUser");
     if (googleUser) {
